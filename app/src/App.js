@@ -73,7 +73,10 @@ const App = () => {
       const account = await program.account.card.all();
       
       console.log("Got the account", account)
-      setUserList(account.card)
+      account.forEach(acc => {
+        console.log(acc);
+        setUserList([...userList, acc.account]);
+      });
   
     } catch (error) {
       console.log("Error in getGifList: ", error)
@@ -262,8 +265,8 @@ const App = () => {
   useEffect(() => {
     if (walletAddress) {
       console.log('Initial dummy users list...');
-      setUserList(TEST_USERS);
-      getUserList().then(()=>{console.log(userList);});
+      // setUserList(TEST_USERS);
+      getUserList();
     }
   }, [walletAddress]);
 

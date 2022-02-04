@@ -69,7 +69,8 @@ const App = () => {
     try {
       const provider = getProvider();
       const program = new Program(idl, programID, provider);
-      const account = await program.account.card.fetch(user.publicKey);
+      console.log(program.account)
+      const account = await program.account.card.all();
       
       console.log("Got the account", account)
       setUserList(account.card)

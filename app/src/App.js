@@ -1,40 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import UserGrid from './components/UserGrid/UserGrid';
-import * as anchor from '@project-serum/anchor';
+// import * as anchor from '@project-serum/anchor';
 import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import { Program, Provider, web3 } from '@project-serum/anchor';
 import idl from './assets/idl.json';
 // import { useAnchorWallet } from '@solana/wallet-adapter-react';
 
-const TEST_USERS = [
-  {
-    img: "https://media.giphy.com/media/IL4iTvQH0MjS/giphy.gif", 
-    name: "stella wang", 
-    description: "hi my name is stella", 
-    github: "stellaw1", 
-    linkedin: "stellaw1"
-  },
-  {
-    img: "https://media.giphy.com/media/x7gybOmE9zBmw/giphy.gif", 
-    name: "arnold", 
-    description: "hi my name is arnold", 
-    github: "arnoldying", 
-    linkedin: "arnoldying12"
-  },
-  {
-    img: "https://media.giphy.com/media/x7gybOmE9zBmw/giphy.gif", 
-    name: "arnold 2123123", 
-    description: "hi my name is arnold", 
-    github: "arnoldying", 
-    linkedin: "arnoldying12"
-  },
-];
+// const TEST_USERS = [
+//   {
+//     img: "https://media.giphy.com/media/IL4iTvQH0MjS/giphy.gif", 
+//     name: "stella wang", 
+//     description: "hi my name is stella", 
+//     github: "stellaw1", 
+//     linkedin: "stellaw1"
+//   },
+//   {
+//     img: "https://media.giphy.com/media/x7gybOmE9zBmw/giphy.gif", 
+//     name: "arnold", 
+//     description: "hi my name is arnold", 
+//     github: "arnoldying", 
+//     linkedin: "arnoldying12"
+//   },
+//   {
+//     img: "https://media.giphy.com/media/x7gybOmE9zBmw/giphy.gif", 
+//     name: "arnold 2123123", 
+//     description: "hi my name is arnold", 
+//     github: "arnoldying", 
+//     linkedin: "arnoldying12"
+//   },
+// ];
 
-const { SystemProgram, Keypair } = web3;
+// const { SystemProgram, Keypair } = web3;
 
 // Create a keypair for the account that will hold the GIF data.
-let user = Keypair.generate();
+// let user = Keypair.generate();
 
 // Get our program's id from the IDL file.
 const programID = new PublicKey(idl.metadata.address);
@@ -264,7 +264,7 @@ const App = () => {
 
   useEffect(() => {
     if (walletAddress) {
-      console.log('Initial dummy users list...');
+      // console.log('Initial dummy users list...');
       // setUserList(TEST_USERS);
       getUserList();
     }

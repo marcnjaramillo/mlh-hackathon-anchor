@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import UserGrid from './components/UserGrid/UserGrid';
+import * as anchor from '@project-serum/anchor';
+import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
+import { Program, Provider, web3 } from '@project-serum/anchor';
+import idl from './assets/idl.json';
+// import { useAnchorWallet } from '@solana/wallet-adapter-react';
 
 const TEST_USERS = [
   {
@@ -26,6 +31,22 @@ const TEST_USERS = [
   },
 ];
 
+const { SystemProgram, Keypair } = web3;
+
+// Create a keypair for the account that will hold the GIF data.
+let user = Keypair.generate();
+
+// Get our program's id from the IDL file.
+const programID = new PublicKey(idl.metadata.address);
+
+// Set our network to devnet.
+const network = clusterApiUrl('devnet');
+
+// Controls how we want to acknowledge when a transaction is "done".
+const opts = {
+  preflightCommitment: "processed"
+}
+
 const App = () => {
   const [walletAddress, setWalletAddress] = useState(null);
   const [nameValue, setNameValue] = useState('');
@@ -35,6 +56,29 @@ const App = () => {
   const [linkedinValue, setLinkedinValue] = useState('');
   const [instagramValue, setInstagramValue] = useState('');
   const [userList, setUserList] = useState([]);
+
+  const getProvider = () => {
+    const connection = new Connection(network, opts.preflightCommitment);
+    const provider = new Provider(
+      connection, window.solana, opts.preflightCommitment,
+    );
+    return provider;
+  }
+
+  const getUserList = async() => {
+    try {
+      const provider = getProvider();
+      const program = new Program(idl, programID, provider);
+      const account = await program.account.card.fetch(user.publicKey);
+      
+      console.log("Got the account", account)
+      setUserList(account.card)
+  
+    } catch (error) {
+      console.log("Error in getGifList: ", error)
+      setUserList(null);
+    }
+  }
 
   /*
   * This function holds the logic for deciding if a Phantom Wallet is
@@ -193,6 +237,7 @@ const App = () => {
       instagram: instagramValue
     };
     setUserList([...userList, newUser]);
+
     setNameValue('');
     setImgValue('');
     setDescValue('');
@@ -215,8 +260,9 @@ const App = () => {
 
   useEffect(() => {
     if (walletAddress) {
-      console.log('Fetching GIF list...');
+      console.log('Initial dummy users list...');
       setUserList(TEST_USERS);
+      getUserList().then(()=>{console.log(userList);});
     }
   }, [walletAddress]);
 

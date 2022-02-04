@@ -18,8 +18,8 @@ const UserGrid = (props) => {
           direction="row"
           spacing={3}>
 
-        {userList.map(user => (
-          <Grid item xs={3} md={4}>
+        {userList && userList.map((user, i) => (
+          <Grid item xs={3} md={4} key = {i}>
             <UserCard 
               imgurl={user.img}
               name={user.name}

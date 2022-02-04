@@ -13,7 +13,7 @@ class UserCard extends Component {
     super(props)
 
     this.state = {
-      imgUrl: props.imgUrl,
+      imgUrl: props.imgurl,
       name: props.name,
       description: props.description,
       github: props.github, 
@@ -28,7 +28,7 @@ class UserCard extends Component {
         <CardMedia
           component="img"
           height="345"
-          image= {this.state.imgurl}
+          image= {this.state.imgUrl}
           alt="pfp"
         />
         <CardContent>

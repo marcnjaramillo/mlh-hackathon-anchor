@@ -3,7 +3,8 @@ import './App.css';
 import UserGrid from './components/UserGrid/UserGrid';
 // import * as anchor from '@project-serum/anchor';
 import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
-import { Program, Provider, web3 } from '@project-serum/anchor';
+// import { Program, Provider, web3 } from '@project-serum/anchor';
+import { Program, Provider } from '@project-serum/anchor';
 import idl from './assets/idl.json';
 // import { useAnchorWallet } from '@solana/wallet-adapter-react';
 
@@ -268,6 +269,7 @@ const App = () => {
       // setUserList(TEST_USERS);
       getUserList();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [walletAddress]);
 
   return (

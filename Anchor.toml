@@ -1,5 +1,5 @@
 [programs.devnet]
-solana_project = "2HnEuU85pg8GjsnLgmXwcU8XZyYJaransqaQLoHeGzzY"
+solana_project = "C4eDSJ3RAoXonEtaWePkYjtkPFfn63mtimnv23AUNGRk"
 
 [registry]
 url = "https://anchor.projectserum.com"

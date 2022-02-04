@@ -10,35 +10,22 @@ describe('solana-project', () => {
   anchor.setProvider(provider);
 
   const program = anchor.workspace.SolanaProject as Program<SolanaProject>;
-  const gifCounter = Keypair.generate();
+  const card = Keypair.generate();
 
-
-  it('Is initialized!', async () => {
-    // Add your test here.
-    const tx = await program.rpc.initialize({
+  it('can create a new card', async () => {
+    
+    const tx = await program.rpc.addCard('some_image_url', 'name name', 'random description text', 'github_url', 'linkedin_url', 'instagram_url', {
       accounts: {
-        gifCounter: gifCounter.publicKey,
+        card: card.publicKey,
         user: provider.wallet.publicKey,
         systemProgram: SystemProgram.programId,
       },
-      signers: [gifCounter],
+      signers: [card],
     });
 
     console.log("Your transaction signature", tx);
     
-    let account = await program.account.gifCounter.fetch(gifCounter.publicKey);
-    console.log('👀 GIF Count', account.totalGifs.toString());
-
-    await program.rpc.addGif("insert_a_giphy_link_here", {
-      accounts: {
-        gifCounter: gifCounter.publicKey,
-        user: provider.wallet.publicKey,
-      },
-    });
-
-    account = await program.account.gifCounter.fetch(gifCounter.publicKey);
-    console.log('👀 GIF Count', account.totalGifs.toString());
-
-    console.log('👀 GIF List', account.gifList)
+    const account = await program.account.card.fetch(card.publicKey);
+    console.log(account);
   });
 });

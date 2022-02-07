@@ -1,5 +1,7 @@
 # Fellows meet fellows
 
+Check it out [live](https://fellows-meet-fellows.vercel.app/)
+
 ## What it does
 This is a webapp hosted on Solana that allows fellows to upload their photos, a short introduction and their social media links, so we can all get to know each other a bit better in this remote workplace. 
 

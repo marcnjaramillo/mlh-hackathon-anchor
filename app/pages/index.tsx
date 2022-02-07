@@ -6,7 +6,7 @@ import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import Grid from '@mui/material/Grid';
 
 import UserCard from '../components/UserCard/UserCard';
-import idl from '../../target/idl/solana_project.json';
+import idl from '../idl.json';
 
 type cardState = {
   program: any

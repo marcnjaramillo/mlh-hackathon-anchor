@@ -15,7 +15,6 @@ pub mod solana_project {
     instagram: String,
   ) -> ProgramResult {
     let card = &mut ctx.accounts.card;
-    let user: &Signer = &ctx.accounts.user;
 
     if name.chars().count() > 50 {
       return Err(ErrorCode::NameError.into());
@@ -41,7 +40,7 @@ pub mod solana_project {
       return Err(ErrorCode::ImageError.into());
     }
 
-    card.user = *user.key;
+    card.user = ctx.accounts.user.key();
     card.name = name;
     card.image_url = image_url;
     card.description = description;

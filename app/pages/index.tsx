@@ -24,8 +24,8 @@ export default function Home() {
   const [linkedinValue, setLinkedinValue] = useState('');
   const [instagramValue, setInstagramValue] = useState('');
   const [cards, setCards] = useState([] as any);
-  const [userCards, setUserCards] = useState([] as any);
-  const [selectedCard, setSelectedCard] = useState(null as any);
+  // const [userCards, setUserCards] = useState([] as any);
+  // const [selectedCard, setSelectedCard] = useState(null as any);
 
 
 
@@ -53,34 +53,12 @@ export default function Home() {
 
   const getUserCards = async () => {
     try {
-  
-      // const userCards = await cardState.program.account.card.all([
-      //   {
-      //     memcmp: {
-      //       offset: 8, // Discriminator.
-      //       bytes: wallet!.publicKey.toBase58(),
-      //     },
-      //   },
-      // ])
-  
-
-        
-      // console.log("User cards:", userCards);
-      // if (userCards.length > 0) {
-
-      //   setUserCards(userCards)
-      //   setSelectedCard(userCards[0])
-      // }
-
       const cards = await cardState.program.account.card.all()
-      // console.log('tracks', tracks)
+
       setCards(cards)
-      // console.log('myTrack', myTrack)
-      
 
     } catch (error) {
-      console.log("Could not get app state:", error)
-      //setUserList(null);      
+      console.log("Could not get app state:", error)    
     }
   }
 
@@ -115,23 +93,8 @@ export default function Home() {
   };
 
   const addUser = async () => {
-    // const [newCard] =
-    // await anchor.web3.PublicKey.findProgramAddress(
-    //   [wallet!.publicKey.toBuffer()],
-    //   cardState.program.programId
-    // )
-
-    // console.log(newCard);
     const newCard = anchor.web3.Keypair.generate();
-
-    const newUser = {
-      imgUrl: imgValue, 
-      name: nameValue, 
-      description: descValue, 
-      github: githubValue, 
-      linkedin: linkedinValue,
-      instagram: instagramValue
-    };
+    console.log(newCard.publicKey);
 
     await cardState.program.rpc.addCard(
       imgValue, 
@@ -149,7 +112,6 @@ export default function Home() {
       signers: [newCard]
     });  
 
-    //setUserList([...userList, newUser]);
     await getUserCards();
 
     setNameValue('');
